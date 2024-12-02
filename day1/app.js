@@ -1,9 +1,7 @@
-const fs = require('fs');
+const { readInputFile } = require('../utils/fileReader');
 
-try {
-    const data = fs.readFileSync('./day1/input.txt', 'utf8');
-    
-    const lines = data.trim().split('\n');
+function parseInput(data) {
+    const lines = data.split('\n');
     const column1 = [];
     const column2 = [];
     
@@ -12,6 +10,13 @@ try {
         column1.push(parseInt(num1));
         column2.push(parseInt(num2));
     });
+    
+    return { column1, column2 };
+}
+
+function solve() {
+    const data = readInputFile(1);
+    const { column1, column2 } = parseInput(data);
     
     const sortedCol1 = [...column1].sort((a, b) => a - b);
     const sortedCol2 = [...column2].sort((a, b) => a - b);
@@ -40,7 +45,6 @@ try {
     console.log(`\nTotal sum of differences: ${totalDifference}`);
     console.log('Frequency map of left values in right column:', frequencyMap);
     console.log('Similarity Score:', similarityScore);
-    
-} catch (err) {
-    console.error('Error:', err);
 }
+
+solve();
